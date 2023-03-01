@@ -4,16 +4,18 @@ import { RouterLink, RouterView } from 'vue-router'
 import Navbar from '../components/Navbar.vue';
 import Navside from '../components/Navside.vue';
 import { defineComponent } from 'vue';
+import Editor from '../components/Editor.vue';
 
 export default defineComponent({
   components:{
     HelloWorld,
     Navbar,
     Navside,
+    Editor,
 },
 
   mounted(){
-    document.title = 'Home Page';
+    document.title = 'Note Page';
   }
 })
 
@@ -29,7 +31,8 @@ export default defineComponent({
       <Navside />
     </div>
     <div class="w-5/6 p-4">
-      Home
+        <Editor />
+    
     </div>
     
   </main>

@@ -1,7 +1,32 @@
+<script>
+import Navbar from '../components/Navbar.vue';
+import Navside from '../components/Navside.vue';
+import { defineComponent } from 'vue';
+import { RouterView } from 'vue-router';
+
+
+export default defineComponent({
+    mounted() {
+        document.title = "About Page";
+    },
+    components: { Navbar, RouterView, Navside }
+})
+</script>
+
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <header>
+      <Navbar />
+  </header>
+  <main class="flex">
+    
+    <div class="w-1/6">
+      <Navside />
+    </div>
+    <div class="w-5/6 p-4">
+      
+    </div>
+    
+  </main>
 </template>
 
 <style>

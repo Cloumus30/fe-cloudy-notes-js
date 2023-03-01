@@ -23,7 +23,7 @@ export default defineConfig(({ command, mode }) => {
         port: parseInt(env.APP_PORT || 3002),
         // proxy:{
         //   "/api/":{
-        //     target: 'http://203.175.11.186',
+        //     target: 'http://api.cloumus30.online',
         //     rewrite: (path) => path.replace(/^\/api/, ""),
         //     changeOrigin: true,
         //     secure: false

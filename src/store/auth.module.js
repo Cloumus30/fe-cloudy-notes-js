@@ -1,3 +1,4 @@
+import { toast } from "vue3-toastify";
 import { axiosInstance } from "../plugin/axios_service";
 
 const user = JSON.parse(localStorage.getItem('user'));
@@ -8,11 +9,11 @@ export const auth= {
     state: initialState,
     actions: {
         login(context, LoginDat){
-            console.log(user);
             axiosInstance.post('/auth/login/',LoginDat).then(data =>{
+                toast('coba login berhasil')
                 context.commit('loginSuccess', data)
             }).catch(err =>{
-
+                toast(err.message)
             });
         }
     },

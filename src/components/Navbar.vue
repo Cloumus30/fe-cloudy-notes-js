@@ -6,6 +6,7 @@
   import IconDoc from './icons/navbar/IconDoc.vue';
   import NotifCard from './partial/notifCard.vue';
   import { defineComponent } from 'vue';
+  import store from '../store';
 
   export default defineComponent({
     components:{
@@ -17,6 +18,12 @@
         isNotifClicked: false,
         isHiddenProf:true,
         isHiddenNotif: true,
+      }
+    },
+
+    computed: {
+      isLoggedIn(){
+        return store.state.auth.status.isLoggedIn;
       }
     },
     
@@ -34,8 +41,16 @@
             this.isHiddenProf = true;
           }
         }
-        
-      } 
+      } ,
+      logout(){
+        store.dispatch('auth/logout')
+        .then((dat) => {
+          this.$router.push('/login');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      }
     }
   })  
 </script>
@@ -67,15 +82,20 @@
               <IconUser />
             </button>
             <ul id="dropdownUser" v-bind:class="{hidden:isHiddenProf}" class=" absolute mt-4 bg-slate-800 drop-shadow rounded-md text-slate-300 right-10 w-40 md:w-40 2xs:w-1/2" aria-labelledby="dropdownUserButton">
-              <li class=" hover:text-white hover:cursor-pointer"> 
+              <li v-if="!isLoggedIn" class=" hover:text-white hover:cursor-pointer"> 
                 <RouterLink class="py-4 pr-4 pl-2 flex" to="/login">
                   <IconLogin class="mx-2" /> Login
                 </RouterLink>
               </li>
-              <li class=" hover:text-white hover:cursor-pointer"> 
+              <li v-if="!isLoggedIn" class=" hover:text-white hover:cursor-pointer"> 
                 <RouterLink class="py-4 pr-4 pl-2 flex" to="/register">
                   <IconDoc class="mx-2" /> Register
                 </RouterLink>
+              </li>
+              <li v-if="isLoggedIn" @click="logout" class=" hover:text-white hover:cursor-pointer"> 
+                <div class="py-4 pr-4 pl-2 flex" to="/register">
+                  <IconDoc class="mx-2" /> Logout
+                </div>
               </li>
             </ul>
           </div>

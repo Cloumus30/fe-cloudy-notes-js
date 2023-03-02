@@ -11,7 +11,7 @@ const app = createApp(App)
 app.use(router)
 app.use(Vue3Toasity,{
     autoClose:3000,
-    position: toast.POSITION.TOP_RIGHT
+    position: toast.POSITION.BOTTOM_RIGHT
 });
 
 app.mount('#app')

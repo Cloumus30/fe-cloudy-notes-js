@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import NoteView from '../views/NoteView.vue'
+import store from '../store/index';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,5 +38,20 @@ const router = createRouter({
     }
   ]
 })
+
+const guestRouter = ['about', 'register', 'login'];
+const forbidLoggedRouter = ['login', 'register'];
+
+router.beforeEach(async(to, from) => {
+  if(!store.state.auth.status.isLoggedIn){
+    if(!guestRouter.includes(to.name)){
+      return '/login'
+    }
+  }else{
+    if(forbidLoggedRouter.includes(to.name)){
+      return '/';
+    }
+  }
+});
 
 export default router

@@ -3,7 +3,6 @@ import HelloWorld from '../components/HelloWorld.vue';
 import { RouterLink, RouterView } from 'vue-router'
 import Navbar from '../components/Navbar.vue';
 import Navside from '../components/Navside.vue';
-import NoteCard from '../components/partial/NoteCard.vue';
 import { defineComponent } from 'vue';
 import NoteCard from '../components/partial/NoteCard.vue';
 

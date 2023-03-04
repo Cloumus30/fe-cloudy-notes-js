@@ -3,15 +3,26 @@ import { Delta, QuillEditor } from '@vueup/vue-quill';
 import { defineComponent } from 'vue';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import '@vueup/vue-quill/dist/vue-quill.bubble.css';
+import * as yup from 'yup';
+import {Field, ErrorMessage, Form} from 'vee-validate';
+import store from '../store';
 
+const schemValidate = yup.object({
+    title_note: yup.string().required().max(100),
+})
 export default defineComponent({
     components:{
-        QuillEditor
+        QuillEditor,
+        Field,
+        ErrorMessage,
+        Form
     },
 
     data: () => {
         return {
            quillDat: "",
+           schemValidate: schemValidate,
+           titleNote: "",
            toolbars:[
                         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
                         ['blockquote', 'code-block'],
@@ -43,19 +54,28 @@ export default defineComponent({
     },
     methods:{
         handleClick() {
-            this.getImageSrcs();
-        },
-        getImageSrcs(){
-            const image = this.quillDat.match(/<img([\w\W]+?)>/g);
-            let srcs:any[] = [];
-            image?.forEach((el)=>{
-                const src =  el.match(/<img.*?src=['"](.*?)['"]/);
-                if(src){
-                    srcs.push(src[1])
-                }
+            const dat = {
+                title: this.titleNote,
+                content: this.quillDat,
+            }
+            store.dispatch('note/createNote', dat)
+            .then(dat =>{
+                this.$router.push('/');
+            }).catch(err => {
+
             });
-            return srcs;
         },
+        // getImageSrcs(){
+        //     const image = this.quillDat.match(/<img([\w\W]+?)>/g);
+        //     let srcs:any[] = [];
+        //     image?.forEach((el)=>{
+        //         const src =  el.match(/<img.*?src=['"](.*?)['"]/);
+        //         if(src){
+        //             srcs.push(src[1])
+        //         }
+        //     });
+        //     return srcs;
+        // },
     }
 })
 
@@ -63,9 +83,19 @@ export default defineComponent({
 
 
 <template>
-    <QuillEditor theme="snow" class="h-5/6" :toolbar="toolbars" 
-        v-model:content="quillDat" 
-        content-type="html"
-         />
-    <button @click="handleClick()">Klik Dinisi</button>
+    <Form @submit="handleClick" :validation-schema="schemValidate" class="h-full">
+        <div class="m-2">
+            <Field name="title_note" v-model="titleNote" type="text" id="title_note" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title Notes" />
+            <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="title_note"/>
+        </div>
+
+        <QuillEditor theme="snow" class="h-5/6 max-h-[35rem]" :toolbar="toolbars" 
+            v-model:content="quillDat" 
+            content-type="html"
+            />
+        <div class="flex justify-end">
+            <button type="submit" class="mt-4 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Simpan</button>
+        </div>
+    </Form>
+    
 </template>

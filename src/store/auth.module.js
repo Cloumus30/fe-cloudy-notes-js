@@ -2,7 +2,8 @@ import { toast } from "vue3-toastify";
 import { axiosInstance } from "../plugin/axios_service";
 
 const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? {status: {isLoggedIn:true}, user} : {status: {isLoggedIn:false}, user:null};
+const jwt = sessionStorage.getItem('jwt');
+const initialState = user ? {status: {isLoggedIn:true}, user, jwt} : {status: {isLoggedIn:false}, user:null, jwt:null};
 
 export const auth= {
     namespaced: true,
@@ -54,14 +55,17 @@ export const auth= {
             sessionStorage.setItem('jwt', jwt);
             state.status.isLoggedIn = true;
             state.user = user;
+            state.jwt = jwt;
         },
         loginFailed(state){
             state.status.isLoggedIn =false;
             state.user = null;
+            state.jwt = null;
         },
         logoutSuccess(state){
             state.status.isLoggedIn = false;
             state.user = null;
+            state.jwt = null;
         }
     }
 }

@@ -32,8 +32,14 @@ const router = createRouter({
       component: RegisterView
     },
     {
-      path: '/note',
+      path: '/note/add',
       name: 'note',
+      component: NoteView
+    },
+    {
+      path: '/note/:noteId/edit',
+      name: 'note_edit',
+      props:true, 
       component: NoteView
     }
   ]

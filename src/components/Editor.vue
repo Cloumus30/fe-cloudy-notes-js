@@ -18,10 +18,23 @@ export default defineComponent({
         Form
     },
 
+    mounted(){
+        this.noteId = this.$route.params.noteId;
+        if(this.noteId){
+            store.dispatch('note/detailNote',this.noteId).then(dat => {
+                this.titleNote = this.detailNote.title;
+                this.quillDat = this.detailNote.content;
+            }).catch(err =>{
+
+            });
+        }
+    },
+
     data: () => {
         return {
            quillDat: "",
            schemValidate: schemValidate,
+           noteId: null,
            titleNote: "",
            toolbars:[
                         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -53,17 +66,30 @@ export default defineComponent({
         // }
     },
     methods:{
-        handleClick() {
+        handleAdd() {
             const dat = {
                 title: this.titleNote,
                 content: this.quillDat,
             }
-            store.dispatch('note/createNote', dat)
-            .then(dat =>{
-                this.$router.push('/');
-            }).catch(err => {
+            if(this.noteId){
+                const datUpdate = {
+                    ...dat,
+                    id: this.noteId,
+                }
+                store.dispatch('note/updateNote', datUpdate).then(dat =>{
+                    this.$router.push('/');
+                }).catch(err => {
 
-            });
+                });
+            }else{
+                store.dispatch('note/createNote', dat)
+                .then(dat =>{
+                    this.$router.push('/');
+                }).catch(err => {
+
+                });
+            }
+            
         },
         // getImageSrcs(){
         //     const image = this.quillDat.match(/<img([\w\W]+?)>/g);
@@ -76,6 +102,12 @@ export default defineComponent({
         //     });
         //     return srcs;
         // },
+    },
+
+    computed:{
+        detailNote(){
+            return store.state.note.detailNote;
+        }
     }
 })
 
@@ -83,7 +115,7 @@ export default defineComponent({
 
 
 <template>
-    <Form @submit="handleClick" :validation-schema="schemValidate" class="h-full">
+    <Form @submit="handleAdd" :validation-schema="schemValidate" class="h-full">
         <div class="m-2">
             <Field name="title_note" v-model="titleNote" type="text" id="title_note" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title Notes" />
             <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="title_note"/>

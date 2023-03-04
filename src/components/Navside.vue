@@ -42,7 +42,7 @@ computed:{
                 </RouterLink>
             </li>
             <li class="mb-6">
-                <RouterLink class="hover:text-white flex flex-row" to="/note">  
+                <RouterLink class="hover:text-white flex flex-row" to="/note/add">  
                      <IconDoc class="mr-7 text-sm" /> Add Notes
                 </RouterLink>
             </li>

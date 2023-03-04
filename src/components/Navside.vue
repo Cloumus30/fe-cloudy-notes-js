@@ -3,11 +3,21 @@ import { defineComponent } from 'vue';
 import { RouterLink } from 'vue-router';
 import IconHome from '@/components/icons/navside/IconHome.vue';
 import IconDoc from '@/components/icons/navside/IconDocument.vue';
+import IconUser from './icons/navbar/IconUser.vue';
+import store from '../store';
 
 export default defineComponent({
     components:{
-        IconHome, IconDoc, RouterLink
+    IconHome,
+    IconDoc,
+    RouterLink,
+    IconUser
+},
+computed:{
+    user(){
+        return store.state.auth.user;
     }
+}
 })
 
 </script>
@@ -17,8 +27,18 @@ export default defineComponent({
         <ul class="m-6">
             <li class="mb-6">
                 <!-- <a  href=""> <IconHome class="mr-7 text-sm" /> Dashboard</a> -->
+                <div class="flex flex-row" to="/">  
+                    <IconUser class="mr-7 text-sm" />
+                    <div>
+                        <span class="">Login As </span> <span class="font-bold">{{ user.email }}</span>
+                    </div>
+                     
+                </div>
+            </li>
+            <li class="mb-6">
+                <!-- <a  href=""> <IconHome class="mr-7 text-sm" /> Dashboard</a> -->
                 <RouterLink class="hover:text-white flex flex-row" to="/">  
-                    <IconHome class="mr-7 text-sm" /> Dashboard
+                    <IconHome class="mr-7 text-sm" /> List Notes
                 </RouterLink>
             </li>
             <li class="mb-6">

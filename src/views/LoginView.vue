@@ -2,10 +2,18 @@
 import store from '../store';
 import { defineComponent } from 'vue';
 import { mapActions } from 'vuex';
+import * as yup from 'yup';
+import {Form, Field, ErrorMessage} from 'vee-validate';
 
-
+const schemValidate = yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().required(),
+})
 export default defineComponent({
   components:{
+    Form,
+    Field,
+    ErrorMessage,
   },
 
   mounted(){
@@ -16,13 +24,14 @@ export default defineComponent({
     return {
         email: '',
         password: '',
+        schemValidate: schemValidate,
     }
   },
   
   methods:{
     ...mapActions(['auth/login']),
 
-    handleLogin(){
+    handleLogin(values){
         store.dispatch('auth/login', {email: this.email, password: this.password})
         .then((dat)=>{
             if(store.state.auth.status.isLoggedIn){
@@ -30,8 +39,7 @@ export default defineComponent({
             }
         })
         .catch((err) =>{
-            console.log('error');
-            console.log(err);
+            
         });
         
     }
@@ -48,14 +56,16 @@ export default defineComponent({
                 <h1>LOGIN</h1>
             </div>
             
-            <form @submit.prevent="handleLogin">
+            <Form @submit="handleLogin" :validation-schema="schemValidate">
                 <div class="relative z-0 w-full mb-6 group">
-                    <input type="email" name="floating_email" v-model="email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-white peer" placeholder="" required />
-                    <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat Email</label>
+                    <Field type="email" name="email" v-model="email" id="email" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-white peer" placeholder="" required />
+                    <label for="email" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Alamat Email</label>
+                    <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="email" />
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
-                    <input type="password" name="floating_password" v-model="password" id="floating_password" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-white peer" placeholder=" " required />
-                    <label for="floating_password" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Sandi</label>
+                    <Field type="password" name="password" v-model="password" id="password" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-white peer" placeholder=" " required />
+                    <label for="password" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kata Sandi</label>
+                    <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="password" />
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group">
@@ -74,7 +84,7 @@ export default defineComponent({
                 </div>
             
                 
-            </form>
+            </Form>
         </div>
 
     </div>

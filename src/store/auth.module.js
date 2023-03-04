@@ -18,7 +18,8 @@ export const auth= {
                     resolve(data)
                 }).catch(err =>{
                     context.commit('loginFailed')
-                    toast(err.message);
+                    const errMsg = err.response.data.message;
+                    toast(errMsg);
                     reject(err);
                 });  
             })
@@ -32,6 +33,19 @@ export const auth= {
                 context.commit('logoutSuccess');
                 resolve('success logout');
             })
+        },
+
+        async register(context, RegisDat){
+            return new Promise((resolve, reject) =>{
+                axiosInstance.post('/auth/register', RegisDat).then(data=>{
+                    toast('Register Success, Please Login');
+                    resolve(data);
+                }).catch(err =>{
+                    const errMsg = err.response.data.message;
+                    toast(errMsg);
+                    reject(err);
+                })
+            });
         }
     },
     mutations: {

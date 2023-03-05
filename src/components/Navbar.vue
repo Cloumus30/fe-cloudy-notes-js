@@ -81,7 +81,7 @@
           <!-- Dropdown Notification -->
 
           <!-- Dropdown Profile -->
-          <div class="group">
+          <div class="group z-50">
             <button id="dropdownUserButton" @click="handleClick('profile')" data-dropdown-toggle="dropdownUser" class="mx-3 hover:text-white">
               <IconUser />
             </button>

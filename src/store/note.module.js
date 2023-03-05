@@ -8,9 +8,13 @@ export const note = {
         listNote:null
     },
     actions:{
-        async listNote(context){
+        async listNote(context, params = null){
             return new Promise((resolve, reject) => {
-                axiosInstance.get('/api/note/list', axiosHeaders()).then(dat=>{
+                let search = '';
+                if(params){
+                    search = params.search || '';
+                }
+                axiosInstance.get(`/api/note/list?q=${search}`, axiosHeaders()).then(dat=>{
                     const noteDat = dat.data.data.data;
                     context.commit('listNoteSuccess', noteDat);
                     resolve(dat);

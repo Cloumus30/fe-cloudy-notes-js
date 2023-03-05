@@ -32,6 +32,7 @@ export default defineComponent({
       defaultNavsideClass: 'w-1/6 md:w-2/6 xl:w-1/6',
       idNote:null,
       isModalShow:false,
+      search:'',
     }
   },
   computed:{
@@ -52,7 +53,10 @@ export default defineComponent({
       this.isModalShow = false;
     },
     listDatNote(){
-      store.dispatch('note/listNote').then(dat=>{
+      const params = {
+        search: this.search,
+      };
+      store.dispatch('note/listNote',params).then(dat=>{
       });
     }
   }
@@ -81,7 +85,7 @@ export default defineComponent({
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <IconSearch />
             </div>
-            <input type="text" id="search" class="bg-gray-800 border border-gray-200 text-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Find By Your Title">
+            <input type="text" id="search" v-model="search" @change="listDatNote" class="bg-gray-800 border border-gray-200 text-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Find By Your Title (Enter To Execute)">
           </div>
         </div>
         <!-- Search Input -->

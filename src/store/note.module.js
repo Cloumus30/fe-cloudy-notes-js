@@ -54,7 +54,6 @@ export const note = {
             return new Promise((resolve, reject)=>{
                 axiosInstance.patch(`/api/note/update/${noteDat.id}`, noteDat, axiosHeaders()).then(dat =>{
                     toast('Success Update Note');
-                    console.log('success update');
                     resolve(dat);
                 }).catch(err =>{
                     const errMsg = err.response.data.message;
@@ -62,6 +61,19 @@ export const note = {
                     reject(err);
                 });
             });
+        },
+
+        async deleteNote(context, idNote){
+            return new Promise((resolve, reject) => {
+                axiosInstance.delete(`/api/note/delete/${idNote}`, axiosHeaders()).then(dat => {
+                    toast('Success Delete Note');
+                    resolve(dat);
+                }).catch(err => {
+                    const errMsg = err.response.data.message;
+                    toast(errMsg);
+                    reject(err);  
+                })
+            })
         }
     },
     

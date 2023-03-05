@@ -25,6 +25,9 @@ export default defineComponent({
     methods:{
         editNote(){
             this.$router.push(`/note/${this.noteId}/edit`);
+        },
+        deleteNote(){
+            this.$emit('deleteEvent', this.noteId)
         }
     }
 })
@@ -44,7 +47,7 @@ export default defineComponent({
         <div class="self-end">
             <button type="button" @click="editNote" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Edit</button>
 
-            <button type="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Delete</button>
+            <button type="button" @click.stop="deleteNote" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Delete</button>
         </div>
     </div>
 

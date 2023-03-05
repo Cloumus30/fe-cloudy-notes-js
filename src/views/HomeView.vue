@@ -68,7 +68,7 @@ export default defineComponent({
     <header>
         <Navbar />
     </header>
-    <main class="flex">
+    <main class="flex bg-black/90 text-white">
       
       <Navside :class="[navSideActive ? activeNavsideClass : defaultNavsideClass]" />
       

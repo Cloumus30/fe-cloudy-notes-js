@@ -107,6 +107,9 @@ export default defineComponent({
     computed:{
         detailNote(){
             return store.state.note.detailNote;
+        },
+        navSideActive(){
+           return store.state.base.navSideActive;
         }
     }
 })
@@ -121,7 +124,7 @@ export default defineComponent({
             <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="title_note"/>
         </div>
 
-        <QuillEditor theme="snow" class="h-5/6 max-h-[35rem]" :toolbar="toolbars" 
+        <QuillEditor theme="snow" class="h-5/6 max-h-[35rem] z-0" :toolbar="toolbars" 
             v-model:content="quillDat" 
             content-type="html"
             />

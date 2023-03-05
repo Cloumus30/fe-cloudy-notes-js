@@ -54,7 +54,7 @@ export default defineComponent({
 
 <template>
     <div class="flex h-screen bg-navbar">
-        <div class="m-auto w-1/3 ">
+        <div class="m-auto w-2/3 md:w-1/3 ">
             <div class="text-center text-2xl text-font-navbar">
                 <h1>DAFTAR</h1>
             </div>

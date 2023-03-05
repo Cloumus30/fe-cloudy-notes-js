@@ -65,7 +65,7 @@
         </div>
         <div class="flex mr-8">
           <!-- Dropdown Notification -->
-          <div>
+          <div class="hidden">
             <button id="dropdownDefaultButton" @click="handleClick('notif')" data-dropdown-toggle="dropdown" class="mx-3 hover:text-white">
               <IconBell/>
             </button>

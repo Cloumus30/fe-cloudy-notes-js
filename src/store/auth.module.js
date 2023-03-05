@@ -3,7 +3,7 @@ import { axiosInstance } from "../plugin/axios_service";
 
 const user = JSON.parse(localStorage.getItem('user'));
 const jwt = sessionStorage.getItem('jwt');
-const initialState = user ? {status: {isLoggedIn:true}, user, jwt} : {status: {isLoggedIn:false}, user:null, jwt:null};
+const initialState = jwt ? {status: {isLoggedIn:true}, user, jwt} : {status: {isLoggedIn:false}, user:null, jwt:null};
 
 export const auth= {
     namespaced: true,

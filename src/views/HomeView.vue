@@ -25,12 +25,17 @@ export default defineComponent({
   data(){
     return {
       title: "Judul Kosong",
-      body: "Body Note Kosong"
+      body: "Body Note Kosong",
+      activeNavsideClass: 'w-full absolute',
+      defaultNavsideClass: 'w-1/6 md:w-2/6 xl:w-1/6',
     }
   },
   computed:{
     listNotes(){
       return store.state.note.listNote;
+    },
+    navSideActive(){
+      return store.state.base.navSideActive;
     }
   }
 
@@ -43,11 +48,10 @@ export default defineComponent({
       <Navbar />
   </header>
   <main class="flex">
-
-    <div class="w-1/6">
-      <Navside />
-    </div>
-    <div class="w-5/6 h-fit p-4 grid grid-cols-3 gap-4 place-items-stretch">
+    
+    <Navside :class="[navSideActive ? activeNavsideClass : defaultNavsideClass]" />
+    
+    <div class="w-5/6 md:w-4/6 xl:w-5/6 h-fit p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gird gap-4 place-items-stretch">
       <NoteCard :title="item.title" :body="body" :noteId="item.id" class=" w-full" v-for="item in listNotes"/>
     </div>
     

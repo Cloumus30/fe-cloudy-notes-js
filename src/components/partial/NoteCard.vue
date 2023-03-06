@@ -1,11 +1,11 @@
 <script>
 import { defineComponent } from 'vue';
 import store from '../../store';
+import {DateTime} from 'luxon';
 
 
 export default defineComponent({
     components:{
-        
     },
     props:{
         title:{
@@ -14,7 +14,7 @@ export default defineComponent({
             default: 'Note_Title'
         },
         body:{
-            type: String,
+            type: Object,
             required:true,
         },
         noteId:{
@@ -22,12 +22,33 @@ export default defineComponent({
         }
     }, 
 
+    data(){
+        return {
+            
+        }
+    },
+
+    mounted(){
+        
+    },
+
     methods:{
         editNote(){
             this.$router.push(`/note/${this.noteId}/edit`);
         },
         deleteNote(){
             this.$emit('deleteEvent', this.noteId)
+        }
+    },
+
+    computed:{
+        createdAt(){
+            const createdAt = DateTime.fromISO(this.body.created_at).toFormat('dd-mm-yyyy');
+            return createdAt;
+        },
+        updatedAt(){
+            const updatedAt = DateTime.fromISO(this.body.updated_at).toFormat('dd-mm-yyyy');
+            return updatedAt;
         }
     }
 })
@@ -42,7 +63,12 @@ export default defineComponent({
             </h5>
         </div>
         
-        <p class="font-normal text-slate-200 ">{{body}}</p>
+        <p class="font-normal text-slate-200 ">
+            <span>Created At: </span> <span>{{ createdAt }}</span>
+        </p>
+        <p class="font-normal text-slate-200 ">
+            <span>Updated At: </span> <span>{{ updatedAt }}</span>
+        </p>
         
         <div class="self-end">
             <button type="button" @click="editNote" class="text-white bg-green-800 hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Edit</button>

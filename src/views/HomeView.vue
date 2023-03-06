@@ -27,7 +27,7 @@ export default defineComponent({
   data(){
     return {
       title: "Judul Kosong",
-      body: "Body Note Kosong",
+      body: {},
       activeNavsideClass: 'w-full absolute',
       defaultNavsideClass: 'w-1/6 md:w-2/6 xl:w-1/6',
       idNote:null,
@@ -89,7 +89,7 @@ export default defineComponent({
           </div>
         </div>
         <!-- Search Input -->
-        <NoteCard :title="item.title" :body="body" :noteId="item.id" @deleteEvent="showPopDelete" class=" w-full" v-for="item in listNotes"/>
+        <NoteCard :title="item.title" :body="item" :noteId="item.id" @deleteEvent="showPopDelete" class=" w-full" v-for="item in listNotes"/>
       </div>
       
     </main>

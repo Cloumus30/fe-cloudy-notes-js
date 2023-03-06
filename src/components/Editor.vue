@@ -28,6 +28,9 @@ export default defineComponent({
 
             });
         }
+        const toolbar = document.getElementsByClassName('ql-toolbar')[0];
+        toolbar.classList.remove('ql-snow');
+        toolbar.classList.add('ql-bubble');
     },
 
     data: () => {
@@ -116,20 +119,18 @@ export default defineComponent({
 
 </script>
 
-
 <template>
     <Form @submit="handleAdd" :validation-schema="schemValidate" class="h-full">
         <div class="m-2 ">
-            <Field name="title_note" v-model="titleNote" type="text" id="title_note" class="bg-black/10 text-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title Notes" />
+            <Field name="title_note" v-model="titleNote" type="text" id="title_note" class="placeholder-slate-500 bg-black/10 text-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title Notes" />
             <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="title_note"/>
         </div>
-
-        <QuillEditor theme="snow" class="h-5/6 max-h-[35rem] z-0 bg-black/10 text-slate-300 text-sm" 
+        
+        <QuillEditor theme="snow" class="h-5/6 max-h-[35rem] z-0 bg-black/10 border-gray-200 text-slate-300 text-sm" 
             v-model:content="quillDat" 
             :toolbar="toolbars"
             content-type="html"
-
-            />
+        />
         
         <div class="flex justify-end">
             <button type="submit" class="mt-4 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Simpan</button>

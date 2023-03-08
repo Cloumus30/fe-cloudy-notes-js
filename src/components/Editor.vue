@@ -80,20 +80,46 @@ export default defineComponent({
                     id: this.noteId,
                 }
                 store.dispatch('note/updateNote', datUpdate).then(dat =>{
-                    this.$router.push('/');
+                    this.$router.push('/?btn=true');
                 }).catch(err => {
 
                 });
             }else{
                 store.dispatch('note/createNote', dat)
                 .then(dat =>{
-                    this.$router.push('/');
+                    this.$router.push('/?btn=true');
                 }).catch(err => {
 
                 });
             }
             
         },
+
+        saveWithoutLeave(){
+            const dat = {
+                title: this.titleNote,
+                content: this.quillDat,
+            }
+            if(this.noteId){
+                const datUpdate = {
+                    ...dat,
+                    id: this.noteId,
+                }
+                store.dispatch('note/updateNote', datUpdate).then(dat =>{
+                    // this.$router.push('/');
+                }).catch(err => {
+
+                });
+            }else{
+                store.dispatch('note/createNote', dat)
+                .then(dat =>{
+                    // this.$router.push('/');
+                }).catch(err => {
+
+                });
+            }
+        },
+
         // getImageSrcs(){
         //     const image = this.quillDat.match(/<img([\w\W]+?)>/g);
         //     let srcs:any[] = [];
@@ -121,7 +147,12 @@ export default defineComponent({
 
 <template>
     <Form @submit="handleAdd" :validation-schema="schemValidate" class="h-full">
-        <div class="m-2 ">
+        <div class="flex justify-end">
+            <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Save</button>
+            <button type="button" @click="saveWithoutLeave" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Save And Continue Edit</button>
+        </div>
+
+        <div class="mb-2 ">
             <Field name="title_note" v-model="titleNote" type="text" id="title_note" class="placeholder-slate-500 bg-black/10 text-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title Notes" />
             <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="title_note"/>
         </div>
@@ -132,9 +163,6 @@ export default defineComponent({
             content-type="html"
         />
         
-        <div class="flex justify-end">
-            <button type="submit" class="mt-4 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Simpan</button>
-        </div>
     </Form>
     
 </template>

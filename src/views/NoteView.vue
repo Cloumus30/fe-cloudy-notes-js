@@ -1,6 +1,5 @@
 <script lang="ts">
 import HelloWorld from '../components/HelloWorld.vue';
-import { RouterLink, RouterView } from 'vue-router'
 import Navbar from '../components/Navbar.vue';
 import Navside from '../components/Navside.vue';
 import { defineComponent } from 'vue';
@@ -12,22 +11,41 @@ export default defineComponent({
     HelloWorld,
     Navbar,
     Navside,
-    Editor,
+    Editor
 },
 
 data(){
   return {
     activeNavsideClass: 'w-full absolute',
     defaultNavsideClass: 'w-1/6 md:w-2/6 xl:w-1/6',
+    isModalShow:false,
+    unsaved: false,
   }
 },
 
   mounted(){
     document.title = 'Note Page';
   },
+  async beforeRouteLeave(to, from){
+    if(this.unsaved && (!to.query.btn)){
+      if(confirm('Unsaved Work, want to Leave without save it?')){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    return true;
+    
+  },
   computed:{
     navSideActive(){
       return store.state.base.navSideActive;
+    }
+  },
+
+  methods:{
+    keyupHandle(){
+      this.unsaved = true;
     }
   }
 })
@@ -43,10 +61,11 @@ data(){
     
     <Navside :class="[navSideActive ? activeNavsideClass : defaultNavsideClass]" />
     
-    <div class="w-5/6 md:w-4/6 xl:w-5/6 p-4">
-        <Editor v-if="!navSideActive" />
+    <div class="w-5/6 md:w-4/6 xl:w-5/6 p-4 z-0">
+        <Editor v-if="!navSideActive" @keyup="keyupHandle" ref="editor" />
     
     </div>
     
   </main>
+    
 </template>

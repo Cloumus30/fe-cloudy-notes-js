@@ -115,22 +115,22 @@
               <IconUser />
             </button>
             <ul id="dropdownUser" v-bind:class="{hidden:isHiddenProf}" class=" absolute mt-4 drop-shadow rounded-md right-10 w-40 md:w-52 2xs:w-1/2 bg-font-light-navbar text-light-navbar dark:bg-navbar dark:text-font-navbar" aria-labelledby="dropdownUserButton">
-              <li v-if="!isLoggedIn" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
+              <li v-if="!isLoggedIn" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
                 <RouterLink class="py-4 pr-4 pl-2 flex" to="/login">
                   <IconLogin class="mx-2" /> Login
                 </RouterLink>
               </li>
-              <li v-if="!isLoggedIn" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
+              <li v-if="!isLoggedIn" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
                 <RouterLink class="py-4 pr-4 pl-2 flex" to="/register">
                   <IconDoc class="mx-2" /> Register
                 </RouterLink>
               </li>
-              <li v-if="isLoggedIn" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer w-full"> 
+              <li v-if="isLoggedIn" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer w-full"> 
                 <div class="py-4 pr-4 pl-2 flex">
                   <IconUser class="mx-2" /> <span>{{ user.email }}</span>
                 </div>
               </li>
-              <li v-if="isLoggedIn" @click="logout" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
+              <li v-if="isLoggedIn" @click="logout" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
                 <div class="py-4 pr-4 pl-2 flex">
                   <IconDoc class="mx-2" /> Logout
                 </div>

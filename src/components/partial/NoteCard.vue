@@ -56,17 +56,17 @@ export default defineComponent({
 
 <template>
 
-    <div @click="editNote" class="flex flex-col items-stretch max-w-sm p-6 bg-slate-700 border border-gray-200 rounded-lg shadow hover:bg-gray-900 text-slate-200">
+    <div @click="editNote" class="flex flex-col items-stretch max-w-sm p-6 dark:bg-slate-700 border dark:border-gray-200 dark:text-slate-200 rounded-lg shadow dark:hover:bg-gray-900 bg-[#FAFAFA] hover:bg-light-navbar">
         <div class="">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-slate-200 ">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight dark:text-slate-200 text-slate-800 ">
                 {{ title }}
             </h5>
         </div>
         
-        <p class="font-normal text-slate-200 ">
+        <p class="font-normal dark:text-slate-200 text-slate-800 ">
             <span>Created At: </span> <span>{{ createdAt }}</span>
         </p>
-        <p class="font-normal text-slate-200 ">
+        <p class="font-normal dark:text-slate-200 text-slate-800 ">
             <span>Updated At: </span> <span>{{ updatedAt }}</span>
         </p>
         

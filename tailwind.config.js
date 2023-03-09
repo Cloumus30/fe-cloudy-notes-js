@@ -19,6 +19,7 @@ module.exports = {
         'font-navbar': '#cbd5e1',
         'light-navbar': '#A7AFE7',
         'font-light-navbar': '#5161CE',
+        'navside': '#3E54AC',
       },
     },
   },

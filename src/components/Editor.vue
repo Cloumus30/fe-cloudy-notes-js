@@ -28,9 +28,10 @@ export default defineComponent({
 
             });
         }
-        const toolbar = document.getElementsByClassName('ql-toolbar')[0];
-        toolbar.classList.remove('ql-snow');
-        toolbar.classList.add('ql-bubble');
+        const isDarkTheme = document.documentElement.classList.contains('dark');
+        if(isDarkTheme){
+            this.switchEditorTheme('dark');
+        }
     },
 
     data: () => {
@@ -120,6 +121,18 @@ export default defineComponent({
             }
         },
 
+        switchEditorTheme(type='dark'){
+            if(type == 'dark'){
+                const toolbar = document.getElementsByClassName('ql-toolbar')[0];
+                toolbar.classList.remove('ql-snow');
+                toolbar.classList.add('ql-bubble');    
+            }else{
+                const toolbar = document.getElementsByClassName('ql-toolbar')[0];
+                toolbar.classList.remove('ql-bubble');
+                toolbar.classList.add('ql-snow');    
+            }
+        }
+
         // getImageSrcs(){
         //     const image = this.quillDat.match(/<img([\w\W]+?)>/g);
         //     let srcs:any[] = [];
@@ -153,11 +166,11 @@ export default defineComponent({
         </div>
 
         <div class="mb-2 ">
-            <Field name="title_note" v-model="titleNote" type="text" id="title_note" class="placeholder-slate-500 bg-black/10 text-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Title Notes" />
+            <Field name="title_note" v-model="titleNote" type="text" id="title_note" class="placeholder-slate-500 dark:bg-black/10 dark:text-white border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-[#FAFAFA] text-black" placeholder="Title Notes" />
             <ErrorMessage class="mt-2 text-sm text-red-600 dark:text-red-500" name="title_note"/>
         </div>
         
-        <QuillEditor theme="snow" class="h-5/6 max-h-[35rem] z-0 bg-black/10 border-gray-200 text-slate-300 text-sm" 
+        <QuillEditor theme="snow" class="h-5/6 max-h-[35rem] z-0 dark:bg-black/10 border-gray-200 dark:text-slate-300 text-sm bg-white text-slate-800" 
             v-model:content="quillDat" 
             :toolbar="toolbars"
             content-type="html"

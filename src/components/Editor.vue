@@ -28,10 +28,8 @@ export default defineComponent({
 
             });
         }
-        const isDarkTheme = document.documentElement.classList.contains('dark');
-        if(isDarkTheme){
-            this.switchEditorTheme('dark');
-        }
+
+        this.switchEditorTheme();
     },
 
     data: () => {
@@ -65,9 +63,9 @@ export default defineComponent({
     setup: ()=>{
     },
     watch:{
-        // quillDat(current:any, old:any){
-        //     console.log(current.match(/<img([\w\W]+?)>/g));
-        // }
+        isDarkTheme(current, old){
+            this.switchEditorTheme();          
+        }
     },
     methods:{
         handleAdd() {
@@ -121,13 +119,13 @@ export default defineComponent({
             }
         },
 
-        switchEditorTheme(type='dark'){
-            if(type == 'dark'){
-                const toolbar = document.getElementsByClassName('ql-toolbar')[0];
+        switchEditorTheme(){
+            const toolbar = document.getElementsByClassName('ql-toolbar')[0];
+            if(this.isDarkTheme){
+                
                 toolbar.classList.remove('ql-snow');
                 toolbar.classList.add('ql-bubble');    
             }else{
-                const toolbar = document.getElementsByClassName('ql-toolbar')[0];
                 toolbar.classList.remove('ql-bubble');
                 toolbar.classList.add('ql-snow');    
             }
@@ -152,6 +150,9 @@ export default defineComponent({
         },
         navSideActive(){
            return store.state.base.navSideActive;
+        },
+        isDarkTheme(){
+            return store.state.base.isDarkTheme;
         }
     }
 })

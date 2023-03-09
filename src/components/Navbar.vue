@@ -31,6 +31,9 @@
       },
       user(){
         return store.state.auth.user;
+      },
+      isDarkTheme(){
+        return store.state.base.isDarkTheme
       }
     },
 
@@ -61,14 +64,15 @@
           console.log(err);
         });
       },
+
       switchTheme(){
         const htmDom = document.documentElement;
-        if(htmDom.classList.contains('dark')){
+        if(this.isDarkTheme){
           htmDom.classList.remove('dark');
-          this.isDark = false;
+          store.dispatch('base/deactivateDarkTheme');
         }else{
           htmDom.classList.add('dark');
-          this.isDark = true;
+          store.dispatch('base/activateDarkTheme');
         }
       },
 
@@ -103,8 +107,8 @@
           <!-- Toggle Dark Theme -->
           <div class="hover:text-white">
             <button @click="switchTheme()">
-              <IconDark :class="(isDark ? '' : 'hidden')" />
-              <IconLight :class="(isDark ? 'hidden' : '')" />
+              <IconDark :class="(isDarkTheme ? '' : 'hidden')" />
+              <IconLight :class="(isDarkTheme ? 'hidden' : '')" />
             </button>
           </div>
           <!-- Toggle Dark Theme -->

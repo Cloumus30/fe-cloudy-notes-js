@@ -9,6 +9,11 @@ export default defineComponent({
     Navbar,
     RouterView,
   },
+
+  mounted(){
+    const htmDom = document.documentElement;
+    htmDom.classList.add('dark');
+  }
 })
 
 onMounted(()=>{

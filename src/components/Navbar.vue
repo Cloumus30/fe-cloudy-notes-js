@@ -5,12 +5,15 @@
   import IconLogin from './icons/navbar/IconLogin.vue';
   import IconDoc from './icons/navbar/IconDoc.vue';
   import NotifCard from './partial/notifCard.vue';
+  import IconDark from './icons/navbar/IconDark.vue';
+  import IconLight from './icons/navbar/IconLight.vue';
   import { defineComponent } from 'vue';
   import store from '../store';
 
   export default defineComponent({
     components:{
-      IconBell, IconUser, IconLogin, IconDoc, RouterLink, NotifCard
+      IconBell, IconUser, IconLogin, IconDoc, RouterLink, NotifCard,
+      IconDark, IconLight
     },
     data(){
       return {
@@ -18,6 +21,7 @@
         isNotifClicked: false,
         isHiddenProf:true,
         isHiddenNotif: true,
+        isDark:true,
       }
     },
 
@@ -28,6 +32,9 @@
       user(){
         return store.state.auth.user;
       }
+    },
+
+    mounted() {
     },
     
     methods:{
@@ -53,15 +60,28 @@
         .catch((err) => {
           console.log(err);
         });
-      }
+      },
+      switchTheme(){
+        const htmDom = document.documentElement;
+        if(htmDom.classList.contains('dark')){
+          htmDom.classList.remove('dark');
+          this.isDark = false;
+        }else{
+          htmDom.classList.add('dark');
+          this.isDark = true;
+        }
+      },
+
     }
   })  
 </script>
 
 <template>
-    <nav class="flex m-0 top-0 justify-between w-screen items-center h-14 text-font-navbar bg-navbar">
-        <div class="font-bold text-2xl">
-          <p>Cloudy Notes</p>
+    <nav class="flex m-0 top-0 justify-between w-screen items-center h-14 bg-font-light-navbar text-light-navbar dark:bg-navbar dark:text-font-navbar">
+        <div class="font-bold text-2xl text-white ml-1">
+          <RouterLink to="/">
+            Cloudy Notes
+          </RouterLink>
         </div>
         <div class="flex mr-8">
           <!-- Dropdown Notification -->
@@ -80,28 +100,37 @@
           </div>
           <!-- Dropdown Notification -->
 
+          <!-- Toggle Dark Theme -->
+          <div class="hover:text-white">
+            <button @click="switchTheme()">
+              <IconDark :class="(isDark ? '' : 'hidden')" />
+              <IconLight :class="(isDark ? 'hidden' : '')" />
+            </button>
+          </div>
+          <!-- Toggle Dark Theme -->
+
           <!-- Dropdown Profile -->
           <div class="group z-50">
             <button id="dropdownUserButton" @click="handleClick('profile')" data-dropdown-toggle="dropdownUser" class="mx-3 hover:text-white">
               <IconUser />
             </button>
-            <ul id="dropdownUser" v-bind:class="{hidden:isHiddenProf}" class=" absolute mt-4 bg-slate-800 drop-shadow rounded-md text-slate-300 right-10 w-40 md:w-52 2xs:w-1/2" aria-labelledby="dropdownUserButton">
-              <li v-if="!isLoggedIn" class=" hover:text-white hover:cursor-pointer"> 
+            <ul id="dropdownUser" v-bind:class="{hidden:isHiddenProf}" class=" absolute mt-4 drop-shadow rounded-md right-10 w-40 md:w-52 2xs:w-1/2 bg-font-light-navbar text-light-navbar dark:bg-navbar dark:text-font-navbar" aria-labelledby="dropdownUserButton">
+              <li v-if="!isLoggedIn" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
                 <RouterLink class="py-4 pr-4 pl-2 flex" to="/login">
                   <IconLogin class="mx-2" /> Login
                 </RouterLink>
               </li>
-              <li v-if="!isLoggedIn" class=" hover:text-white hover:cursor-pointer"> 
+              <li v-if="!isLoggedIn" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
                 <RouterLink class="py-4 pr-4 pl-2 flex" to="/register">
                   <IconDoc class="mx-2" /> Register
                 </RouterLink>
               </li>
-              <li v-if="isLoggedIn" class=" hover:text-white hover:cursor-pointer w-full"> 
+              <li v-if="isLoggedIn" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer w-full"> 
                 <div class="py-4 pr-4 pl-2 flex">
                   <IconUser class="mx-2" /> <span>{{ user.email }}</span>
                 </div>
               </li>
-              <li v-if="isLoggedIn" @click="logout" class=" hover:text-white hover:cursor-pointer"> 
+              <li v-if="isLoggedIn" @click="logout" class=" hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
                 <div class="py-4 pr-4 pl-2 flex">
                   <IconDoc class="mx-2" /> Logout
                 </div>

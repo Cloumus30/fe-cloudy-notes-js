@@ -74,7 +74,7 @@ export default defineComponent({
     <header>
         <Navbar />
     </header>
-    <main class="flex bg-black/90 text-white">
+    <main class="flex dark:bg-black/90 dark:text-white bg-[#E4E3E5] text-black">
       
       <Navside :class="[navSideActive ? activeNavsideClass : defaultNavsideClass]" />
       
@@ -85,7 +85,7 @@ export default defineComponent({
             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <IconSearch />
             </div>
-            <input type="text" id="search" v-model="search" @change="listDatNote" class="bg-gray-800 border border-gray-200 text-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Find By Your Title (Enter To Execute)">
+            <input type="text" id="search" v-model="search" @change="listDatNote" class="border bg-[#FAFAFA] text-black dark:bg-gray-800 dark:border-gray-200 dark:text-slate-200 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 " placeholder="Find By Your Title (Enter To Execute)">
           </div>
         </div>
         <!-- Search Input -->

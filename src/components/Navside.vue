@@ -46,7 +46,7 @@ methods:{
 </script>
 
 <template>
-    <nav class="flex flex-row text-font-navbar bg-slate-900 h-screen">
+    <nav class="flex flex-row text-font-navbar bg-navside dark:bg-slate-900 h-screen">
         <ul class="m-6">
             <li class="mb-6">
                 <div v-if="!navSideActive" class="flex">

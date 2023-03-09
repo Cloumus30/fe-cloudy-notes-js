@@ -56,7 +56,7 @@ data(){
   <header>
       <Navbar />
   </header>
-  <main class="flex bg-black/90 text-white">
+  <main class="flex dark:bg-black/90 dark:text-white bg-[#E4E3E5] text-black">
 
     
     <Navside :class="[navSideActive ? activeNavsideClass : defaultNavsideClass]" />

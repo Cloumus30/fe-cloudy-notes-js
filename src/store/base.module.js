@@ -3,6 +3,7 @@ export const base = {
     namespaced:true,
     state:{
         navsideActive:false,
+        isDarkTheme: true,
     },
     actions:{
         activateNavside(context){
@@ -10,6 +11,12 @@ export const base = {
         },
         deactivateNavside(context){
             context.commit('deactivatedNavside');
+        },
+        activateDarkTheme(context){
+            context.commit('activateDarkTheme');
+        },
+        deactivateDarkTheme(context){
+            context.commit('deactivateDarkTheme');
         }
     },
     mutations:{
@@ -18,6 +25,12 @@ export const base = {
         },
         deactivatedNavside(state){
             state.navSideActive = false;
+        },
+        activateDarkTheme(state){
+            state.isDarkTheme = true;
+        },
+        deactivateDarkTheme(state){
+            state.isDarkTheme = false;
         }
     }
 }

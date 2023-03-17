@@ -13,6 +13,7 @@ const validateSchema = yup.object({
 });
 
 export default defineComponent({
+    inject:['cryptoSecret'],
   components:{
     Field,
     ErrorMessage,

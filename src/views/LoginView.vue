@@ -10,6 +10,7 @@ const schemValidate = yup.object({
     password: yup.string().required(),
 })
 export default defineComponent({
+    inject:['cryptoSecret'],
   components:{
     Form,
     Field,
@@ -32,7 +33,8 @@ export default defineComponent({
     ...mapActions(['auth/login']),
 
     handleLogin(values){
-        store.dispatch('auth/login', {email: this.email, password: this.password})
+        const input = {email: this.email, password: this.password};
+        store.dispatch('auth/login', input)
         .then((dat)=>{
             if(store.state.auth.status.isLoggedIn){
                 this.$router.push('/');

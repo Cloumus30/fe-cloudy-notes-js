@@ -1,5 +1,7 @@
 import { toast } from "vue3-toastify";
 import { axiosInstance, axiosHeaders } from "../plugin/axios_service"
+import cryptoJs from "crypto-js";
+import { encryptBody } from "../plugin/crypto_service";
 
 export const note = {
     namespaced:true,
@@ -26,8 +28,9 @@ export const note = {
             })
         },
         async createNote(context, noteDat){
+            const encrypted = encryptBody(noteDat);
             return new Promise((resolve, reject) => {
-                axiosInstance.post('/api/note/save',noteDat, axiosHeaders())
+                axiosInstance.post('/api/note/save',encrypted, axiosHeaders())
                 .then(data => {
                     toast('Save Note Success');
                     resolve(data);
@@ -56,10 +59,12 @@ export const note = {
 
         async updateNote(context, noteDat){
             return new Promise((resolve, reject)=>{
-                axiosInstance.patch(`/api/note/update/${noteDat.id}`, noteDat, axiosHeaders()).then(dat =>{
+                const encrypted = encryptBody(noteDat);
+                axiosInstance.patch(`/api/note/update/${noteDat.id}`, encrypted, axiosHeaders()).then(dat =>{
                     toast('Success Update Note');
                     resolve(dat);
                 }).catch(err =>{
+                    console.log(err);
                     const errMsg = err.response.data.message;
                     toast(errMsg);
                     reject(err);

@@ -11,6 +11,8 @@ const schemValidate = yup.object({
     title_note: yup.string().required().max(100),
 })
 export default defineComponent({
+    inject:['cryptoSecret'],
+
     components:{
         QuillEditor,
         Field,

@@ -58,7 +58,8 @@
       logout(){
         store.dispatch('auth/logout')
         .then((dat) => {
-          this.$router.push('/login');
+          // this.$router.push('/login');
+          window.location.href = '/login';
         })
         .catch((err) => {
           console.log(err);

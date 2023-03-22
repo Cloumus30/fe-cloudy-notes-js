@@ -42,7 +42,8 @@ export default defineComponent({
         }
         store.dispatch('auth/register', dat)
         .then(dat => {
-            this.$router.push('/login');
+            // this.$router.push('/login');
+            window.location.href = '/login';
         }).catch(err => {
 
         });

@@ -50,6 +50,24 @@ export const auth= {
                     reject(err);
                 })
             });
+        },
+
+        async loginSosmed(context, loginDat){
+            return new Promise((resolve, reject) => {
+                const encrypted = encryptBody(loginDat);
+                axiosInstance.post('/auth/login-sosmed',encrypted).then(data =>{
+                    const user = data.data.data.user || null;
+                    const jwt = data.data.data.access_key || null;
+                    context.commit('loginSuccess', {user, jwt});
+                    toast('Login Success')
+                    resolve(data)
+                }).catch(err =>{
+                    context.commit('loginFailed')
+                    const errMsg = err.response.data.message;
+                    toast(errMsg);
+                    reject(err);
+                });  
+            })
         }
     },
     mutations: {

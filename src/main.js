@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import Vue3Toasity, { toast } from 'vue3-toastify'
 import vueCryptojs from 'vue-cryptojs'
+import {config} from './config/firebaseConfig'
+import firebase from 'firebase/compat/app';
 
 import './assets/main.css'
 import 'vue3-toastify/dist/index.css'
@@ -19,5 +21,8 @@ app.use(vueCryptojs)
 
 app.provide('cryptoSecret',import.meta.env.VITE_CRYPTO_SECRET);
 
+firebase.initializeApp(config);
+
+app.provide('firebase', firebase);
 
 app.mount('#app')

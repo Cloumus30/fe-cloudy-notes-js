@@ -4,6 +4,7 @@ import store from '../store/index';
 import {mapActions} from 'vuex';
 import * as yup from 'yup';
 import {Field, ErrorMessage, Form} from 'vee-validate';
+import FirebaseAuthUi from '../components/FirebaseAuthUi.vue';
 
 const validateSchema = yup.object({
     name: yup.string().required(),
@@ -17,7 +18,8 @@ export default defineComponent({
   components:{
     Field,
     ErrorMessage,
-    Form
+    Form,
+    FirebaseAuthUi
   },
   mounted(){
     document.title = 'Register';
@@ -88,8 +90,9 @@ export default defineComponent({
                 <div class="flex justify-around">
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-mono rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Daftar</button>
 
-                    <button type="button" class=" hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-mono rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login Google</button>
                 </div>
+
+                <FirebaseAuthUi />
 
                 <div class="relative z-0 w-full mt-6">
                     <p class="ml-2 text-sm font-medium text-font-navbar">Sudah Punya Akun? Silahkan <a href="/login" class="text-white hover:underline"> login </a></p>

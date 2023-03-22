@@ -52,7 +52,7 @@ router.beforeEach(async(to, from) => {
   if(!store.state.auth.status.isLoggedIn){
     if(!guestRouter.includes(to.name)){
       window.location.href = '/login'
-      return '/login'
+      // return '/login'
     }
   }else{
     if(forbidLoggedRouter.includes(to.name)){

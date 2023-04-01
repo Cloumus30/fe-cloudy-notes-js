@@ -5,6 +5,7 @@ import Vue3Toasity, { toast } from 'vue3-toastify'
 import vueCryptojs from 'vue-cryptojs'
 import {config} from './config/firebaseConfig'
 import firebase from 'firebase/compat/app';
+import LoadingPage from './components/partial/LoadingPage.vue'
 
 import './assets/main.css'
 import 'vue3-toastify/dist/index.css'
@@ -16,6 +17,8 @@ app.use(Vue3Toasity,{
     autoClose:3000,
     position: toast.POSITION.BOTTOM_RIGHT
 });
+
+app.component('loading-page', LoadingPage)
 
 app.use(vueCryptojs)
 

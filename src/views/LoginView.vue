@@ -5,6 +5,7 @@ import { mapActions } from 'vuex';
 import * as yup from 'yup';
 import {Form, Field, ErrorMessage} from 'vee-validate';
 import FirebaseAuthUi from '../components/FirebaseAuthUi.vue';
+import ButtonLoading from '../components/partial/ButtonLoading.vue';
 
 const schemValidate = yup.object({
     email: yup.string().email().required(),
@@ -17,6 +18,7 @@ export default defineComponent({
     Field,
     ErrorMessage,
     FirebaseAuthUi,
+    ButtonLoading,
   },
 
   mounted(){
@@ -28,22 +30,31 @@ export default defineComponent({
         email: '',
         password: '',
         schemValidate: schemValidate,
+        isLoading: false,
+    }
+  },
+
+  computed: {
+    isPageLoading(){
+        return store.state.base.isPageLoading;
     }
   },
   
   methods:{
     ...mapActions(['auth/login']),
 
-    handleLogin(values){
+    handleLogin(){
         const input = {email: this.email, password: this.password};
+        this.isLoading = true;
         store.dispatch('auth/login', input)
         .then((dat)=>{
             if(store.state.auth.status.isLoggedIn){
                 this.$router.push('/');
+                this.isLoading = false;
             }
         })
         .catch((err) =>{
-            
+            this.isLoading = false;
         });
         
     }
@@ -55,6 +66,7 @@ export default defineComponent({
 
 <template>
     <div class="flex h-screen bg-navbar">
+        <loading-page :isShow="isPageLoading"></loading-page>
         <div class="m-auto w-2/3 md:w-1/3 ">
             <div class="text-center text-2xl text-font-navbar">
                 <h1>LOGIN</h1>
@@ -78,9 +90,7 @@ export default defineComponent({
                 </div>
                 
                 <div class="flex justify-around">
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-mono rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Daftar</button>
-
-                    <button type="button" class=" hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-mono rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Login Google</button>
+                    <ButtonLoading :isLoading="isLoading" type="submit"> Submit </ButtonLoading>
                 </div>
 
                 <FirebaseAuthUi />

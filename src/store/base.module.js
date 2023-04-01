@@ -4,6 +4,7 @@ export const base = {
     state:{
         navsideActive:false,
         isDarkTheme: true,
+        isPageLoading: false,
     },
     actions:{
         activateNavside(context){
@@ -17,6 +18,12 @@ export const base = {
         },
         deactivateDarkTheme(context){
             context.commit('deactivateDarkTheme');
+        },
+        showLoadingPage(context){
+            context.commit('loadingPageTrue');
+        },
+        hideLoadingPage(context){
+            context.commit('loadingPageFalse');
         }
     },
     mutations:{
@@ -31,6 +38,12 @@ export const base = {
         },
         deactivateDarkTheme(state){
             state.isDarkTheme = false;
+        },
+        loadingPageTrue(state){
+            state.isPageLoading = true;
+        },
+        loadingPageFalse(state){
+            state.isPageLoading = false;
         }
     }
 }

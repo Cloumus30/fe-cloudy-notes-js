@@ -43,11 +43,11 @@ export default defineComponent({
 
     computed:{
         createdAt(){
-            const createdAt = DateTime.fromISO(this.body.created_at).toFormat('dd-mm-yyyy');
+            const createdAt = DateTime.fromISO(this.body.created_at).toFormat('dd-LL-yyyy');
             return createdAt;
         },
         updatedAt(){
-            const updatedAt = DateTime.fromISO(this.body.updated_at).toFormat('dd-mm-yyyy');
+            const updatedAt = DateTime.fromISO(this.body.updated_at).toFormat('dd-LL-yyyy');
             return updatedAt;
         }
     }

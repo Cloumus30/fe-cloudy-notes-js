@@ -6,6 +6,7 @@ import '@vueup/vue-quill/dist/vue-quill.bubble.css';
 import * as yup from 'yup';
 import {Field, ErrorMessage, Form} from 'vee-validate';
 import store from '../store';
+import ButtonLoading from './partial/ButtonLoading.vue';
 
 const schemValidate = yup.object({
     title_note: yup.string().required().max(100),
@@ -17,7 +18,8 @@ export default defineComponent({
         QuillEditor,
         Field,
         ErrorMessage,
-        Form
+        Form,
+        ButtonLoading,
     },
 
     mounted(){
@@ -40,6 +42,7 @@ export default defineComponent({
            schemValidate: schemValidate,
            noteId: null,
            titleNote: "",
+           isLoading: false,
            toolbars:[
                         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
                         ['blockquote', 'code-block'],
@@ -71,6 +74,7 @@ export default defineComponent({
     },
     methods:{
         handleAdd() {
+            this.isLoading = true;
             const dat = {
                 title: this.titleNote,
                 content: this.quillDat,
@@ -88,15 +92,17 @@ export default defineComponent({
             }else{
                 store.dispatch('note/createNote', dat)
                 .then(dat =>{
+                    this.isLoading = false;
                     this.$router.push('/?btn=true');
                 }).catch(err => {
-
+                    this.isLoading = false;
                 });
             }
             
         },
 
         saveWithoutLeave(){
+            this.isLoading = true;
             const dat = {
                 title: this.titleNote,
                 content: this.quillDat,
@@ -108,15 +114,17 @@ export default defineComponent({
                 }
                 store.dispatch('note/updateNote', datUpdate).then(dat =>{
                     // this.$router.push('/');
+                    this.isLoading = false;
                 }).catch(err => {
-
+                    this.isLoading = false;
                 });
             }else{
                 store.dispatch('note/createNote', dat)
                 .then(dat =>{
                     // this.$router.push('/');
+                    this.isLoading = false;
                 }).catch(err => {
-
+                    this.isLoading = false;
                 });
             }
         },
@@ -164,8 +172,9 @@ export default defineComponent({
 <template>
     <Form @submit="handleAdd" :validation-schema="schemValidate" class="h-full">
         <div class="flex justify-end">
-            <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Save</button>
-            <button type="button" @click="saveWithoutLeave" class="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Save And Continue Edit</button>
+            <ButtonLoading :isLoading="isLoading" type="submit" classStr="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"> Save </ButtonLoading>
+
+            <ButtonLoading type="button" @click="saveWithoutLeave" :isLoading="isLoading" classStr="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2" >Save And Continue Edit</ButtonLoading>
         </div>
 
         <div class="mb-2 ">

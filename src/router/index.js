@@ -43,12 +43,12 @@ const router = createRouter({
       props:true, 
       component: NoteView
     },
-    {
-      path: '/coba',
-      name: 'coba_component',
-      props:true, 
-      component: LoadingPage
-    }
+    // {
+    //   path: '/coba',
+    //   name: 'coba_component',
+    //   props:true, 
+    //   component: LoadingPage
+    // }
   ]
 })
 

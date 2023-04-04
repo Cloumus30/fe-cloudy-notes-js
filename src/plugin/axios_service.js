@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-    baseURL: 'https://api.cloumus30.online',
+    baseURL: import.meta.env.VITE_AXIOS_BASE_URL || 'https://api.cloumus30.online',
     // baseURL: 'http://localhost:3000',
 });
 

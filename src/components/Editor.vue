@@ -25,11 +25,14 @@ export default defineComponent({
     mounted(){
         this.noteId = this.$route.params.noteId;
         if(this.noteId){
+            store.dispatch('base/showLoadingPage');
             store.dispatch('note/detailNote',this.noteId).then(dat => {
                 this.titleNote = this.detailNote.title;
+                document.title = this.detailNote.title || 'Note Page';
                 this.quillDat = this.detailNote.content;
+                store.dispatch('base/hideLoadingPage');
             }).catch(err =>{
-
+                store.dispatch('base/hideLoadingPage');
             });
         }
 
@@ -163,6 +166,9 @@ export default defineComponent({
         },
         isDarkTheme(){
             return store.state.base.isDarkTheme;
+        },
+        isPageLoading(){
+            return store.state.base.isPageLoading;
         }
     }
 })
@@ -171,6 +177,7 @@ export default defineComponent({
 
 <template>
     <Form @submit="handleAdd" :validation-schema="schemValidate" class="h-full">
+        <loading-page :isShow="isPageLoading"></loading-page>
         <div class="flex justify-end">
             <ButtonLoading :isLoading="isLoading" type="submit" classStr="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"> Save </ButtonLoading>
 

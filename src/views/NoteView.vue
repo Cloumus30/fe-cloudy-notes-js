@@ -24,7 +24,6 @@ data(){
 },
 
   mounted(){
-    document.title = 'Note Page';
   },
   async beforeRouteLeave(to, from){
     if(this.unsaved && (!to.query.btn)){

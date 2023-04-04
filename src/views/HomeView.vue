@@ -41,6 +41,9 @@ export default defineComponent({
     },
     navSideActive(){
       return store.state.base.navSideActive;
+    },
+    isPageLoading(){
+        return store.state.base.isPageLoading;
     }
   },
 
@@ -56,7 +59,12 @@ export default defineComponent({
       const params = {
         search: this.search,
       };
+      store.dispatch('base/showLoadingPage');
+
       store.dispatch('note/listNote',params).then(dat=>{
+        store.dispatch('base/hideLoadingPage');
+      }).catch((err) =>{
+        store.dispatch('base/hideLoadingPage');
       });
     }
   }
@@ -67,6 +75,7 @@ export default defineComponent({
 
 <template>
   <div class="w-full h-full">
+    <loading-page :isShow="isPageLoading"></loading-page>
     <div v-if="isModalShow" class="absolute bg-black/50 w-full h-full">
       <PopModal :idNote="idNote" class="absolute top-1/3 left-10 md:top-1/4 md:left-[18rem] lg:top-1/4 lg:left-[34rem]" @closeModalEvent="closePopDelete" @listNoteEvent="listDatNote"  />
     </div>

@@ -12,15 +12,7 @@ export const axiosInstance = axios.create({
 export const axiosHeaders = () => {
     const jwt = cookies.get('jwt');
     if(!jwt){
-        // toast('Account Session Expired');
-        store.dispatch('auth/logout')
-        .then((dat) => {
-        //   this.$router.push('/login');
-          window.location.href = '/';
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        window.location.href = '/login'
     }
     return {
             headers:{

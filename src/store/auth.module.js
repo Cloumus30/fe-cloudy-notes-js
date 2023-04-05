@@ -1,9 +1,12 @@
 import { toast } from "vue3-toastify";
 import { axiosInstance } from "../plugin/axios_service";
 import { encryptBody } from "../plugin/crypto_service";
+import { useCookies } from "vue3-cookies";
+const {cookies} = useCookies();
 
-const user = JSON.parse(localStorage.getItem('user'));
-const jwt = sessionStorage.getItem('jwt');
+const user = cookies.get('user');
+const jwt = cookies.get('jwt');
+const authExpired = parseInt(import.meta.env.VITE_AUTH_EXPIRED ?? 3600);
 const initialState = jwt ? {status: {isLoggedIn:true}, user, jwt} : {status: {isLoggedIn:false}, user:null, jwt:null};
 
 export const auth= {
@@ -30,8 +33,8 @@ export const auth= {
         
         async logout(context){
             return new Promise((resolve, reject) => {
-                localStorage.removeItem('user');
-                sessionStorage.removeItem('jwt');
+                cookies.remove('user');
+                cookies.remove('jwt');
                 toast('Logout success');
                 context.commit('logoutSuccess');
                 resolve('success logout');
@@ -72,8 +75,8 @@ export const auth= {
     },
     mutations: {
         loginSuccess(state, {user, jwt}){
-            localStorage.setItem('user',JSON.stringify(user));
-            sessionStorage.setItem('jwt', jwt);
+            cookies.set('user',user,authExpired);
+            cookies.set('jwt', jwt,authExpired);
             state.status.isLoggedIn = true;
             state.user = user;
             state.jwt = jwt;

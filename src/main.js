@@ -6,6 +6,7 @@ import vueCryptojs from 'vue-cryptojs'
 import {config} from './config/firebaseConfig'
 import firebase from 'firebase/compat/app';
 import LoadingPage from './components/partial/LoadingPage.vue'
+import VueCookies from 'vue3-cookies'
 
 import './assets/main.css'
 import 'vue3-toastify/dist/index.css'
@@ -27,5 +28,7 @@ app.provide('cryptoSecret',import.meta.env.VITE_CRYPTO_SECRET);
 firebase.initializeApp(config);
 
 app.provide('firebase', firebase);
+
+app.use(VueCookies);
 
 app.mount('#app')

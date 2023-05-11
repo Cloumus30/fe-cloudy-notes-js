@@ -181,7 +181,7 @@ export default defineComponent({
         <div class="flex justify-end">
             <ButtonLoading :isLoading="isLoading" type="submit" classStr="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2"> Save </ButtonLoading>
 
-            <ButtonLoading type="button" @click="saveWithoutLeave" :isLoading="isLoading" classStr="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2" >Save And Continue Edit</ButtonLoading>
+            <ButtonLoading type="button" v-if="noteId" @click="saveWithoutLeave" :isLoading="isLoading" classStr="text-white bg-cyan-700 hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2" >Save And Continue Edit</ButtonLoading>
         </div>
 
         <div class="mb-2 ">

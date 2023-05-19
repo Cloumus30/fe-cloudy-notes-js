@@ -28,9 +28,9 @@ export const note = {
             })
         },
         async createNote(context, noteDat){
-            const encrypted = encryptBody(noteDat);
+            // const encrypted = encryptBody(noteDat);
             return new Promise((resolve, reject) => {
-                axiosInstance.post('/api/note/save',encrypted, axiosHeaders())
+                axiosInstance.post('/api/note/save',noteDat, axiosHeaders())
                 .then(data => {
                     toast('Save Note Success');
                     resolve(data);
@@ -59,8 +59,8 @@ export const note = {
 
         async updateNote(context, noteDat){
             return new Promise((resolve, reject)=>{
-                const encrypted = encryptBody(noteDat);
-                axiosInstance.patch(`/api/note/update/${noteDat.id}`, encrypted, axiosHeaders()).then(dat =>{
+                // const encrypted = encryptBody(noteDat);
+                axiosInstance.patch(`/api/note/update/${noteDat.id}`, noteDat, axiosHeaders()).then(dat =>{
                     toast('Success Update Note');
                     resolve(dat);
                 }).catch(err =>{

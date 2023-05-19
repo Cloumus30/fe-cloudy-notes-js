@@ -15,8 +15,8 @@ export const auth= {
     actions: {
         async login(context, LoginDat){
             return new Promise((resolve, reject) => {
-                const encrypted = encryptBody(LoginDat);
-                axiosInstance.post('/auth/login/',encrypted).then(data =>{
+                // const encrypted = encryptBody(LoginDat);
+                axiosInstance.post('/auth/login/',LoginDat).then(data =>{
                     const user = data.data.data.user || null;
                     const jwt = data.data.data.access_key || null;
                     context.commit('loginSuccess', {user, jwt});
@@ -42,9 +42,9 @@ export const auth= {
         },
 
         async register(context, RegisDat){
-            const encrypted = encryptBody(RegisDat);
+            // const encrypted = encryptBody(RegisDat);
             return new Promise((resolve, reject) =>{
-                axiosInstance.post('/auth/register', encrypted).then(data=>{
+                axiosInstance.post('/auth/register', RegisDat).then(data=>{
                     toast('Register Success, Please Login');
                     resolve(data);
                 }).catch(err =>{
@@ -57,8 +57,8 @@ export const auth= {
 
         async loginSosmed(context, loginDat){
             return new Promise((resolve, reject) => {
-                const encrypted = encryptBody(loginDat);
-                axiosInstance.post('/auth/login-sosmed',encrypted).then(data =>{
+                // const encrypted = encryptBody(loginDat);
+                axiosInstance.post('/auth/login-sosmed',loginDat).then(data =>{
                     const user = data.data.data.user || null;
                     const jwt = data.data.data.access_key || null;
                     context.commit('loginSuccess', {user, jwt});

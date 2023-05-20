@@ -39,6 +39,9 @@ data(){
   computed:{
     navSideActive(){
       return store.state.base.navSideActive;
+    },
+    user(){
+      return store.state.auth.user;
     }
   },
 
@@ -55,6 +58,11 @@ data(){
   <header>
       <Navbar />
   </header>
+
+  <!-- Password Not set -->
+  <AlertCustom v-if="!user.isPassword" message="Update Your Password" link="profile"/>
+    <!-- Password Not set -->
+
   <main class="flex dark:bg-black/90 dark:text-white bg-[#E4E3E5] text-black">
 
     

@@ -88,7 +88,7 @@
             Cloudy Notes
           </RouterLink>
         </div>
-        <div class="flex mr-8">
+        <div class="flex md:mr-24 mr-10">
           <!-- Dropdown Notification -->
           <div class="hidden">
             <button id="dropdownDefaultButton" @click="handleClick('notif')" data-dropdown-toggle="dropdown" class="mx-3 hover:text-white">
@@ -130,12 +130,20 @@
                   <IconDoc class="mx-2" /> Register
                 </RouterLink>
               </li>
-              <li v-if="isLoggedIn" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer w-full"> 
-                <div class="py-4 pr-4 pl-2 flex">
-                  <IconUser class="mx-2" /> <span>{{ user.email }}</span>
+              <li v-if="isLoggedIn" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
+                <div class="py-4 pr-4 pl-2 flex w-full">
+                  <IconUser class="mx-2" />
+                   <div class="text-sm">{{ user.email }}</div>
+                </div>
+              </li>
+              <li v-if="isLoggedIn" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
+                <div class="py-4 pr-4 pl-2 flex w-full">
+                  <IconUser class="mx-2" />
+                   <a href="/profile" class="text-sm">Update Password</a>
                 </div>
               </li>
               <li v-if="isLoggedIn" @click="logout" class=" dark:hover:bg-white dark:hover:text-navbar hover:text-font-light-navbar hover:bg-white hover:cursor-pointer"> 
+                <hr>
                 <div class="py-4 pr-4 pl-2 flex">
                   <IconDoc class="mx-2" /> Logout
                 </div>

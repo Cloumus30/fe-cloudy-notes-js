@@ -8,6 +8,7 @@ import NoteCard from '../components/partial/NoteCard.vue';
 import store from '../store';
 import PopModal from '../components/partial/PopModal.vue';
 import IconSearch from '../components/icons/IconSearch.vue';
+import AlertCustom from '../components/partial/AlertCustom.vue';
 
 export default defineComponent({
   components:{
@@ -17,6 +18,7 @@ export default defineComponent({
     NoteCard,
     PopModal,
     IconSearch,
+    AlertCustom,
 },
 
   mounted(){
@@ -44,6 +46,9 @@ export default defineComponent({
     },
     isPageLoading(){
         return store.state.base.isPageLoading;
+    },
+    user(){
+      return store.state.auth.user;
     }
   },
 
@@ -83,6 +88,11 @@ export default defineComponent({
     <header>
         <Navbar />
     </header>
+
+    <!-- Password Not set -->
+    <AlertCustom v-if="!user.isPassword" message="Update Your Password" link="profile"/>
+    <!-- Password Not set -->
+
     <main class="flex dark:bg-black/90 dark:text-white bg-[#E4E3E5] text-black">
       
       <Navside :class="[navSideActive ? activeNavsideClass : defaultNavsideClass]" />

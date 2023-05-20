@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import NoteView from '../views/NoteView.vue'
 import LoadingPage from '../components/partial/LoadingPage.vue'
+import ProfileView from '../views/ProfileView.vue'
 import store from '../store/index';
 
 const router = createRouter({
@@ -43,12 +44,11 @@ const router = createRouter({
       props:true, 
       component: NoteView
     },
-    // {
-    //   path: '/coba',
-    //   name: 'coba_component',
-    //   props:true, 
-    //   component: LoadingPage
-    // }
+    {
+      path: '/profile',
+      name: 'coba_component',
+      component: ProfileView
+    }
   ]
 })
 

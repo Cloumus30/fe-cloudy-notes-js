@@ -9,6 +9,11 @@ export default defineComponent({
     mounted() {
         document.title = "About Page";
     },
+    computed:{
+      user(){
+        return store.state.auth.user;
+      }
+    },
     components: { Navbar, RouterView, Navside }
 })
 </script>
@@ -17,6 +22,11 @@ export default defineComponent({
   <header>
       <Navbar />
   </header>
+
+  <!-- Password Not set -->
+  <AlertCustom v-if="!user.isPassword" message="Update Your Password" link="profile"/>
+    <!-- Password Not set -->
+
   <main class="flex">
     
     <div class="w-1/6">

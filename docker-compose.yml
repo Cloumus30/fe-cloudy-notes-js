@@ -25,6 +25,6 @@ services:
     networks:
       - be-cloudy-notes_cloudy-notes
 
-  networks:
-    be-cloudy-notes_cloudy-notes:
-      external: true
+networks:
+  be-cloudy-notes_cloudy-notes:
+    external: true

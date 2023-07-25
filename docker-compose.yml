@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  fe-note:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: fe-note
+    image: be-note
+    restart: unless-stopped
+    working_dir: /usr/src/app
+    volumes: 
+      - ./:/user/src/app
+    networks:
+      - be-cloudy-notes_cloudy-notes
+
+  fe-note-nginx:
+    image: nginx:1.17-alpine
+    container_name: fe-note-nginx
+    restart: unless-stopped
+    ports:
+      - ${APP_PORT}:80
+    volumes:
+      - ./:/user/src/app
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    networks:
+      - be-cloudy-notes_cloudy-notes
+
+  networks:
+    be-cloudy-notes_cloudy-notes:
+      external: true

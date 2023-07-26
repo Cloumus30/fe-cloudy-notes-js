@@ -10,12 +10,12 @@ COPY package*.json ./
 RUN apk add --no-cache bash \
     git
 
-# RUN npm install
+RUN npm install
 # If you are building your code for production
 # RUN npm ci --omit=dev
 
 COPY . .
 
-# RUN npm run build
+RUN npm run build
 
 # EXPOSE ${APP_PORT}

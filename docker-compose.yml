@@ -7,7 +7,7 @@ services:
     container_name: fe-note
     image: fe-note
     restart: unless-stopped
-    working_dir: /usr/src/app
+    working_dir: /user/src/app
     volumes: 
       - ./:/user/src/app
     networks:

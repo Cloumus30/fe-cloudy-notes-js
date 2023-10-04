@@ -22,7 +22,7 @@ export default defineComponent({
 },
 
   mounted(){
-    document.title = 'List Notes';
+    document.title = 'List Notes Update';
     this.listDatNote();
   },
   
